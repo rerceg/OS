@@ -1,0 +1,146 @@
+function ParenthesesValidator.checkIfValid 4
+push constant 0
+pop local 0
+push argument 0
+call String.length 1
+pop local 1
+push local 1
+call Array.new 1
+pop local 3
+push constant 1
+neg
+pop local 2
+label WHILE_EXP0
+push local 0
+push local 1
+lt
+not
+if-goto WHILE_END0
+push argument 0
+push local 0
+call String.charAt 2
+push constant 40
+eq
+push argument 0
+push local 0
+call String.charAt 2
+push constant 91
+eq
+or
+push argument 0
+push local 0
+call String.charAt 2
+push constant 123
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 2
+push constant 1
+add
+pop local 2
+push local 2
+push local 3
+add
+push argument 0
+push local 0
+call String.charAt 2
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+goto IF_END0
+label IF_FALSE0
+push argument 0
+push local 0
+call String.charAt 2
+push constant 41
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 2
+push local 3
+add
+pop pointer 1
+push that 0
+push constant 40
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 2
+push constant 1
+sub
+pop local 2
+goto IF_END2
+label IF_FALSE2
+push constant 0
+return
+label IF_END2
+goto IF_END1
+label IF_FALSE1
+push argument 0
+push local 0
+call String.charAt 2
+push constant 93
+eq
+push argument 0
+push local 0
+call String.charAt 2
+push constant 125
+eq
+or
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 0
+push local 0
+call String.charAt 2
+push constant 2
+sub
+push local 2
+push local 3
+add
+pop pointer 1
+push that 0
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push local 2
+push constant 1
+sub
+pop local 2
+goto IF_END4
+label IF_FALSE4
+push constant 0
+return
+label IF_END4
+label IF_FALSE3
+label IF_END1
+label IF_END0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push local 3
+call Array.dispose 1
+pop temp 0
+push local 2
+push constant 1
+neg
+eq
+not
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+return
+label IF_FALSE5
+push constant 0
+not
+return

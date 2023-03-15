@@ -1,0 +1,59 @@
+class ParenthesesValidator
+{
+    function boolean checkIfValid(String S)
+    {
+        var int i, len, openedParanthesesIndex;
+        var Array openedParantheses; //dispose?
+
+        let i = 0;
+        let len = S.length();
+        let openedParantheses = Array.new(len);
+        let openedParanthesesIndex = -1;
+
+        while (i < len) 
+        {
+            if (((S.charAt(i) = 40) | (S.charAt(i) = 91)) | (S.charAt(i) = 123))//'(','[','{'
+            {
+                let openedParanthesesIndex = openedParanthesesIndex + 1;
+                let openedParantheses[openedParanthesesIndex] = S.charAt(i);
+            }
+            else
+            {
+                if (S.charAt(i) = 41)//')'
+                {
+                    if (openedParantheses[openedParanthesesIndex] = 40)
+                    {
+                        let openedParanthesesIndex = openedParanthesesIndex - 1;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if ((S.charAt(i) = 93) | (S.charAt(i) = 125))//']','}'
+                    {
+                        if ((S.charAt(i) - 2) = openedParantheses[openedParanthesesIndex])
+                        {
+                            let openedParanthesesIndex = openedParanthesesIndex - 1;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            let i = i + 1;
+        }
+
+        do openedParantheses.dispose();
+
+        if (~(openedParanthesesIndex = -1))
+        {
+            return false;
+        }
+        return true;
+    }
+}

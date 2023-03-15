@@ -1,0 +1,24 @@
+class Main
+{
+	function void main() 
+	{	
+		var String S; //jel string treba dispose?
+		var boolean flag;
+		//"(1 + x + y)}}"
+		//"(1 + 2 + [3)]"
+		//"(1 + [x + y])"
+		let S = "(1 + [x + y])";
+		let flag = ParenthesesValidator.checkIfValid(S);
+		
+		if (flag)
+		{
+			do Output.printString("Validan");
+		}
+		else
+		{
+			do Output.printString("Nije validan");
+		}
+		
+		return;
+	}
+}
