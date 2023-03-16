@@ -1,6 +1,6 @@
 function Main.main 1
-push constant 0
-push constant 0
+push constant 4
+push constant 45
 call Clock.new 2
 pop local 0
 push local 0

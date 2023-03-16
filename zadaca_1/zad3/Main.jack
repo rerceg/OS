@@ -3,7 +3,7 @@ class Main
     function void main()
     {
         var Clock clock;
-        let clock = Clock.new(0, 0);
+        let clock = Clock.new(4, 45);
         do clock.drawClock();
         return;
     }
