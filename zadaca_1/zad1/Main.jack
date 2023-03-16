@@ -2,7 +2,7 @@ class Main
 {
 	function void main() 
 	{	
-		var String S; //jel string treba dispose?
+		var String S;
 		var boolean flag;
 		//"(1 + x + y)}}"
 		//"(1 + 2 + [3)]"
@@ -18,7 +18,7 @@ class Main
 		{
 			do Output.printString("Nije validan");
 		}
-		
+		do S.dispose();
 		return;
 	}
 }

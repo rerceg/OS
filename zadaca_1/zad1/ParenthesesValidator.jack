@@ -2,13 +2,15 @@ class ParenthesesValidator
 {
     function boolean checkIfValid(String S)
     {
+        var boolean flag;
         var int i, len, openedParanthesesIndex;
-        var Array openedParantheses; //dispose?
+        var Array openedParantheses;
 
         let i = 0;
         let len = S.length();
         let openedParantheses = Array.new(len);
         let openedParanthesesIndex = -1;
+        let flag = true;
 
         while (i < len) 
         {
@@ -27,7 +29,8 @@ class ParenthesesValidator
                     }
                     else
                     {
-                        return false;
+                        let i = len;
+                        let flag = false;
                     }
                 }
                 else
@@ -40,7 +43,8 @@ class ParenthesesValidator
                         }
                         else
                         {
-                            return false;
+                            let i = len;
+                            let flag = false;
                         }
                     }
                 }
@@ -54,6 +58,6 @@ class ParenthesesValidator
         {
             return false;
         }
-        return true;
+        return flag;
     }
 }
