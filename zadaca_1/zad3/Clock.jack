@@ -1452,7 +1452,6 @@ class Clock
         let hoursPositionsY[718] = 77;
         let hoursPositionsX[719] = 256;
         let hoursPositionsY[719] = 77;
-
         let minutesPositionsX[0] = 256;
         let minutesPositionsY[0] = 52;
         let minutesPositionsX[1] = 264;
@@ -1573,6 +1572,7 @@ class Clock
         let minutesPositionsY[58] = 54;
         let minutesPositionsX[59] = 248;
         let minutesPositionsY[59] = 52;
+        
         return this;
     }
 
@@ -1608,7 +1608,7 @@ class Clock
         do Screen.setColor(false);
         do Screen.drawRectangle(148, 22, 364, 232);
         do Screen.setColor(true);
-        do Screen.drawCircle(256, 127, 3);//vrati na 3, ovo je samo da vidis gdje crtati brojeve
+        do Screen.drawCircle(256, 127, 3);
         
         do Screen.drawLine(256, 50, 256, 35);
         do Screen.drawLine(259, 50, 259, 35);
@@ -1627,11 +1627,14 @@ class Clock
         do Screen.drawLine(173, 120, 178, 135);
         do Screen.drawLine(170, 120, 170, 135);
 
-        // do Screen.setColor(false);
-        // do Screen.drawPixel(256, 52); //isprobavam gdje su granice
-        // do Screen.drawPixel(331, 127); //isprobavam gdje su granice
-        // do Screen.drawPixel(256, 202); //isprobavam gdje su granice
-        // do Screen.drawPixel(181, 127); //isprobavam gdje su granice
+        do Screen.drawLine(294,60,296,57);
+        do Screen.drawLine(323,88,326,86);
+        do Screen.drawLine(323,166,326,168);
+        do Screen.drawLine(294,194,296,197);
+        do Screen.drawLine(218,194,215,197);
+        do Screen.drawLine(189,166,186,168);
+        do Screen.drawLine(189,88,186,86);
+        do Screen.drawLine(217,60,215,57);
 
         do drawArms();
         return;
@@ -1643,11 +1646,10 @@ class Clock
         let vrijeme = (hours*60) + minutes; 
 
         do Screen.setColor(false);
-        do Screen.drawCircle(256, 127, 75);
+        do Screen.drawCircle(256, 127, 76);
         do Screen.setColor(true);
         do Screen.drawCircle(256, 127, 3);
 
-        //ovo ce ici o trenutnim minutama i satima;
         do Screen.drawLine(256, 127, hoursPositionsX[vrijeme], hoursPositionsY[vrijeme]);
         do Screen.drawLine(256, 127, minutesPositionsX[minutes], minutesPositionsY[minutes]);
 
@@ -1656,8 +1658,10 @@ class Clock
 
     method void dispose()
 	{
-        do hoursPositionsX.dispose(); //nez jel treba ovo posebno
+        do hoursPositionsX.dispose();
 		do hoursPositionsY.dispose();
+        do minutesPositionsX.dispose();
+        do minutesPositionsY.dispose();
         do Memory.deAlloc(this);
 		
         return;
