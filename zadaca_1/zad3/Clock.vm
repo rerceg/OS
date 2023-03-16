@@ -1,0 +1,202 @@
+function Clock.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+pop this 1
+push pointer 0
+return
+function Clock.tick 0
+push argument 0
+pop pointer 0
+push this 1
+push constant 1
+add
+push constant 60
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 1
+add
+push constant 12
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop this 0
+goto IF_END1
+label IF_FALSE1
+push this 0
+push constant 1
+add
+pop this 0
+label IF_END1
+push constant 0
+pop this 1
+goto IF_END0
+label IF_FALSE0
+push this 1
+push constant 1
+add
+pop this 1
+label IF_END0
+push pointer 0
+call Clock.drawArms 1
+pop temp 0
+push constant 0
+return
+function Clock.drawClock 0
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 147
+push constant 21
+push constant 365
+push constant 233
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 148
+push constant 22
+push constant 364
+push constant 232
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 256
+push constant 127
+push constant 3
+call Screen.drawCircle 3
+pop temp 0
+push constant 256
+push constant 50
+push constant 256
+push constant 35
+call Screen.drawLine 4
+pop temp 0
+push constant 259
+push constant 50
+push constant 259
+push constant 35
+call Screen.drawLine 4
+pop temp 0
+push constant 248
+push constant 50
+push constant 253
+push constant 35
+call Screen.drawLine 4
+pop temp 0
+push constant 253
+push constant 50
+push constant 248
+push constant 35
+call Screen.drawLine 4
+pop temp 0
+push constant 334
+push constant 120
+push constant 334
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push constant 337
+push constant 120
+push constant 337
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push constant 340
+push constant 120
+push constant 340
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push constant 244
+push constant 204
+push constant 249
+push constant 219
+call Screen.drawLine 4
+pop temp 0
+push constant 249
+push constant 219
+push constant 254
+push constant 204
+call Screen.drawLine 4
+pop temp 0
+push constant 258
+push constant 204
+push constant 258
+push constant 219
+call Screen.drawLine 4
+pop temp 0
+push constant 178
+push constant 120
+push constant 173
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push constant 173
+push constant 120
+push constant 178
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push constant 170
+push constant 120
+push constant 170
+push constant 135
+call Screen.drawLine 4
+pop temp 0
+push pointer 0
+call Clock.drawArms 1
+pop temp 0
+push constant 0
+return
+function Clock.drawArms 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 256
+push constant 127
+push constant 75
+call Screen.drawCircle 3
+pop temp 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 256
+push constant 127
+push constant 3
+call Screen.drawCircle 3
+pop temp 0
+push constant 256
+push constant 127
+push constant 256
+push constant 77
+call Screen.drawLine 4
+pop temp 0
+push constant 256
+push constant 127
+push constant 331
+push constant 127
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+return
