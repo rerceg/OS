@@ -1,0 +1,37 @@
+class Main
+{
+    function void main()
+    {
+        var Matrix M1, M2, M3, M4, M5;
+        let M1 = Matrix.eye(3);
+        let M2 = Matrix.new(3);
+        do M2.setElem(0,0,1);
+        do M2.setElem(0,1,1);
+        do M2.setElem(0,2,1);
+        let M3 = M1.add(M2); // sta ako napravim let M1 = M1.add(M2) ? jel trebam dispose()..Mislim da je to odgovornost programera.. za stare podatke u M1? isto i za mnozenje skalarom i mnozenje
+        do Matrix.printMatrix(M3, 3);
+        do Output.println();
+        let M4 = M1.multScalar(15);
+        do Matrix.printMatrix(M4, 3);
+        do Output.println();
+        let M5 = M2.multMat(M3);
+        do Matrix.printMatrix(M5, 3);
+        do Output.println();
+        do Output.printInt(M1.norm());
+        do Output.println();
+        do Output.printInt(M2.norm());
+        do Output.println();
+        do Output.printInt(M3.norm());
+        do Output.println();
+        do Output.printInt(M4.norm());
+        do Output.println();
+        do Output.printInt(M5.norm());
+        
+        do M1.dispose();
+        do M2.dispose();
+        do M3.dispose();
+        do M4.dispose();
+        do M5.dispose();
+        return;
+    }
+}

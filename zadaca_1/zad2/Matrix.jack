@@ -1,0 +1,160 @@
+class Matrix
+{
+    field Array M;
+    field int n;
+
+    constructor Matrix new(int dimension)
+    {
+        var int i, j;
+        let i = 0;
+
+        let n = dimension;
+        let M = Array.new(n*n);
+        while (i < (n*n))
+        {
+            let M[i] = 0;
+            let i = i + 1;
+        }
+        return this;
+    }
+
+    method int getElem(int i, int j)
+    {
+        return M[(i*n) + j];
+    }
+
+    method void setElem(int i, int j, int elem)
+    {
+        let M[(i*n) + j] = elem;
+        return;
+    }
+
+    method Matrix add(Matrix M2)
+    {
+        var int i, j;
+        var Matrix SumMatrix;
+        let SumMatrix = Matrix.new(n);
+        let i = 0;
+        while (i < n)
+        {
+            let j = 0;
+            while (j < n)
+            {
+                do SumMatrix.setElem(i, j, M[(i*n) + j] + M2.getElem(i, j));
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return SumMatrix;
+    }
+
+    method Matrix multScalar(int alpha)
+    {
+        var int i, j;
+        var Matrix ResultMatrix;
+        let ResultMatrix = Matrix.new(n);
+        let i = 0;
+        while (i < n)
+        {
+            let j = 0;
+            while (j < n)
+            {
+                do ResultMatrix.setElem(i, j, alpha * M[(i*n) + j]);
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return ResultMatrix;
+    }
+
+    method Matrix multMat(Matrix M2)
+    {
+        var int i, j, k, c;
+        var Matrix MultMatrix;
+        let MultMatrix = Matrix.new(n);
+        let i = 0;
+        while (i < n)
+        {
+            let j = 0;
+            while (j < n)
+            {
+                let k = 0;
+                while(k < n)
+                {
+                    let c = MultMatrix.getElem(i, j) + (M[(i*n) + k] * M2.getElem(k, j));
+                    do MultMatrix.setElem(i, j, c);
+                    let k = k + 1;
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return MultMatrix;
+    }
+
+    method int norm()
+    {
+        var int i, j, temp, result;
+        let i = 0;
+        let result = 0;
+
+        while (i < n)
+        {
+            let j = 0;
+            while (j < n)
+            {
+                let temp = Math.abs(M[(i*n) + j]);
+                let result = (temp*temp) + result;
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        let result = Math.sqrt(result);
+        return result;
+    }
+
+    function Matrix eye(int dimension)
+    {
+        var int i;
+        var Matrix Eye;
+        let i = 0;
+        let Eye = Matrix.new(dimension);
+        while (i < dimension)
+        {
+            do Eye.setElem(i, i, 1);
+            let i = i + 1;
+        }
+
+        return Eye;
+    }
+
+    function void printMatrix(Matrix A, int n)
+    {
+        var int i, j;
+        let i = 0;
+        while (i < n)
+        {
+            let j = 0;
+            if (i > 0)
+            {
+                do Output.println();
+            }
+            while (j < n)
+            {
+                do Output.printInt(A.getElem(i, j));
+                do Output.printChar(" ");
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
+
+    method void dispose()
+	{
+        do M.dispose(); //nez jel treba ovo posebno
+		do Memory.deAlloc(this);
+		
+        return;
+	}
+}

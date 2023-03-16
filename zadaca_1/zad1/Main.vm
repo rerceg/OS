@@ -1,5 +1,5 @@
 function Main.main 2
-push constant 13
+push constant 12
 call String.new 1
 push constant 40
 call String.appendChar 2
@@ -24,8 +24,6 @@ call String.appendChar 2
 push constant 121
 call String.appendChar 2
 push constant 93
-call String.appendChar 2
-push constant 41
 call String.appendChar 2
 pop local 0
 push local 0
