@@ -94,19 +94,15 @@ class Matrix
 
     method int norm()
     {
-        var int i, j, temp, result;
+        var int i, temp, result, len;
         let i = 0;
         let result = 0;
-
-        while (i < n)
+        let len = n*n;
+        
+        while (i < len)
         {
-            let j = 0;
-            while (j < n)
-            {
-                let temp = Math.abs(M[(i*n) + j]);
-                let result = (temp*temp) + result;
-                let j = j + 1;
-            }
+            let temp = Math.abs(M[i]);
+            let result = (temp*temp) + result;
             let i = i + 1;
         }
         let result = Math.sqrt(result);
@@ -152,7 +148,7 @@ class Matrix
 
     method void dispose()
 	{
-        do M.dispose(); //nez jel treba ovo posebno
+        do M.dispose();
 		do Memory.deAlloc(this);
 		
         return;
