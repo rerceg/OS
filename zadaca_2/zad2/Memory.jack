@@ -1,0 +1,177 @@
+/**
+ * Memory operations library.
+ */ 
+class Memory
+{
+    static Array ram;
+    static Array freeList;
+    
+    /** Initializes memory parameters. */
+    function void init()
+    {
+        let ram = 0;
+        
+        // set heap and free list to 2048 (heap top)
+        let freeList = 2048;
+        
+        // initial values
+        let freeList[0] = 0;     // no next block at start
+        let freeList[1] = 14334; // initial block length, 16384 - 2048 - 1
+        
+        return;
+    }
+
+    /** Returns the value of the main memory at the given address. */
+    function int peek(int address)
+    {
+        return ram[address];
+    }
+
+    /** Sets the value of the main memory at this address
+     *  to the given value. */
+    function void poke(int address, int value)
+    {
+        let ram[address] = value;
+        return;
+    }
+
+    /** finds and allocates from the heap a memory block of the 
+     *  specified size and returns a reference to its base address. */
+    function int alloc(int size)
+    {
+        var int curr, next, len, new;
+        let curr = freeList;
+        
+        // iterate through all blocks
+        while (~(curr = 0))
+        {
+            let next = ram[curr];
+            let len = ram[curr + 1];
+            // check if current block is large enough
+            if (~(len < (size + 2))) // len >= size + 2
+            {
+                // the block is large enough, use it (first fit) 
+                let ram[curr + 1] = len - size - 2;
+                
+                let new = curr + len - size;
+                let ram[new] = 0;
+                let ram[new + 1] = size;
+                
+                // return first element
+                return new + 2;
+            }            
+            
+            let curr = next;
+        }
+        do Memory.defrag();
+
+        return freeList;
+    }
+
+    /** De-allocates the given object and frees its space. */
+    function void deAlloc(int object)
+    {
+        var int curr, last;
+        let curr = freeList;
+        // iterate through all blocks
+        while (~(curr = 0))
+        {
+            let last = curr;
+            let curr = ram[curr];
+        }
+
+        let ram[last] = object - 2;
+
+        return;
+    }
+    
+    function void memcpy(int src, int dest, int len)
+    {
+        var int i;
+        let i = 0;
+        while (i < len)
+        {
+            let ram[dest + i] = ram[src + i];
+            let i = i + 1;
+        }
+
+        return;
+    }
+
+    function void defrag()
+    {
+        var int curr, next, prev, len, i, j, temp;
+        let curr = ram[freeList];
+        let len = 1;
+        let i = 0;
+
+        while (~(curr = 0))
+        {
+            let len = len + 1;
+            let curr = ram[curr];
+        }
+
+
+        while (i < (len - 1))
+        {
+            let prev = freeList;
+            let curr = ram[prev];
+            let next = ram[curr];
+            let j = 0;
+            if (curr = 0)
+            {
+                let i = len;
+            }
+            else
+            {
+                while (j < (len - 1 - i))
+                {
+                    if (next < curr)
+                    {
+                        if (next = 0)
+                        {
+                            let j = len - i;
+                        }
+                        else
+                        {
+                            let temp = ram[next];
+                            let ram[next] = curr;
+                            let ram[curr] = temp;
+                            let ram[prev] = next;
+
+                            let prev = next;
+                            let next = ram[curr];
+                        }
+                    }
+                    else
+                    {
+                        let prev = curr;
+                        let curr = next;
+                        let next = ram[next];
+                    }
+                    let j = j + 1;
+                }
+                let i = i + 1;
+            }
+        }
+
+        let curr = freeList;
+
+        let i = 0;
+        while(i < len)
+        {
+            if ((curr + ram[curr + 1] + 2) = ram[curr])
+            {
+                let ram[curr + 1] = ram[curr + 1] + ram[ram[curr] + 1] + 2;
+                let ram[curr] = ram[ram[curr]];
+            }
+            else
+            {
+                let curr = ram[curr];
+            }
+            let i = i + 1;
+        }
+
+        return;
+    }
+}
