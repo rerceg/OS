@@ -1,0 +1,225 @@
+class TetrisLBlock
+{
+    field int rotation, x, y;
+
+    constructor TetrisLBlock new()
+	{
+        let rotation = 0;
+        let x = 15;
+        let y = 7;
+        return this;
+    }
+
+    method void start()
+    {
+        var char k;
+        var boolean not_esc;
+        
+        let not_esc = true;
+        
+        do draw(true);
+        
+        while (not_esc)
+        {
+            let k = Keyboard.keyPressed();
+            let not_esc = key(k);
+            do Sys.wait(100);
+        }
+
+        return;
+    }
+
+    method void draw(boolean color)
+    {
+        var int pixelX, pixelY;
+        do Screen.setColor(color);
+
+        let pixelX = 16 * x;
+        let pixelY = 16 * y;
+
+        if (rotation = 0)
+        {
+            do Screen.drawRectangle(pixelX, pixelY - 16, pixelX + 15, pixelY + 31);
+            do Screen.drawRectangle(pixelX + 16, pixelY + 16, pixelX + 31, pixelY + 31);
+        }
+        if (rotation = 1)
+        {
+            do Screen.drawRectangle(pixelX - 16, pixelY, pixelX + 31, pixelY + 15);
+            do Screen.drawRectangle(pixelX - 16, pixelY + 16, pixelX -1, pixelY + 31);
+        }
+        if (rotation = 2)
+        {
+            do Screen.drawRectangle(pixelX, pixelY - 16, pixelX + 15, pixelY + 31);
+            do Screen.drawRectangle(pixelX - 16, pixelY - 16, pixelX - 1, pixelY - 1);
+        }
+        if (rotation = 3)
+        {
+            do Screen.drawRectangle(pixelX - 16, pixelY, pixelX + 31, pixelY + 15);
+            do Screen.drawRectangle(pixelX + 16, pixelY - 16, pixelX + 31, pixelY - 1);
+        }
+
+        return;
+    }
+
+    method void rotate()
+    {
+        if(~(allow_rotate()))
+        {
+            return;
+        }
+        do draw(false);
+        let rotation = (rotation + 1) - ((rotation + 1) / 4 * 4);
+        do draw(true);
+        return;
+    }
+
+    method boolean allow_rotate()
+    {
+        if (rotation = 0)
+        {
+            if (x = 0)
+            {
+                return false;
+            }
+        }
+        if (rotation = 1)
+        {
+            if (y = 0)
+            {
+                return false;
+            }
+        }
+        if (rotation = 2)
+        {
+            if (x = 31)
+            {
+                return false;
+            }
+        }
+        if (rotation = 3)
+        {
+            if (y = 15)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    method boolean allow_move(int newX, int newY)
+    {
+        if (rotation = 0)
+        {
+            if (((x = 0) & (newX = -1)) | ((x = 30) & (newX = 31)) | ((y = 1) & (newY = 0)) | ((y = 14) & (newY = 15)))
+            {
+                return false;
+            }
+        }
+        if (rotation = 1)
+        {
+            if (((x = 1) & (newX = 0)) | ((x = 30) & (newX = 31)) | ((y = 0) & (newY = -1)) | ((y = 14) & (newY = 15)))
+            {
+                return false;
+            }
+        }
+        if (rotation = 2)
+        {
+            if (((x = 1) & (newX = 0)) | ((x = 31) & (newX = 32)) | ((y = 1) & (newY = 0)) | ((y = 14) & (newY = 15)))
+            {
+                return false;
+            }
+        }
+        if (rotation = 3)
+        {
+            if (((x = 1) & (newX = 0)) | ((x = 30) & (newX = 31)) | ((y = 1) & (newY = 0)) | ((y = 15) & (newY = 16)))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    method void left()
+    {
+        if(~(allow_move(x-1, y)))
+        {
+            return;
+        }
+        do draw(false);
+        let x = x - 1;
+        do draw(true);
+        return;
+    }
+
+    method void right()
+    {
+        if(~(allow_move(x+1, y)))
+        {
+            return;
+        }
+        do draw(false);
+        let x = x + 1;
+        do draw(true);
+        return;
+    }
+
+    method void up()
+    {
+        if(~(allow_move(x, y-1)))
+        {
+            return;
+        }
+        do draw(false);
+        let y = y - 1;
+        do draw(true);
+        return;
+    }
+
+    method void down()
+    {
+        if(~(allow_move(x, y+1)))
+        {
+            return;
+        }
+        do draw(false);
+        let y = y + 1;
+        do draw(true);
+        return;
+    }
+
+    method boolean key(char k)
+	{	
+		if ((k = 114) | (k = 82)) 
+		{	
+			do rotate();
+            return true;
+		} 
+		if (k = 133)
+		{	
+            do down();
+            return true;
+		} 
+		if (k = 130) 
+		{	
+			do left();
+            return true;
+		} 
+		if (k = 132) 
+		{	
+			do right();
+            return true;
+			
+		}
+        if (k = 131)
+        {
+            do up();
+            return true;
+        }
+        if (k = 140)
+        {
+            return false;
+        }
+
+		return true;
+	}
+}
